@@ -1,0 +1,35 @@
+package me.poxtoc.bloco;
+
+import me.poxtoc.bloco.eventos.PlayerFood;
+import me.poxtoc.bloco.eventos.PlayerInteractBLock;
+import me.poxtoc.bloco.eventos.PlayerJoin;
+import me.poxtoc.bloco.eventos.PlayerMove;
+import me.poxtoc.bloco.eventos.PlayerQuit;
+import me.poxtoc.bloco.manager.GameStart;
+import me.poxtoc.bloco.manager.RespawnBlock;
+
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Main extends JavaPlugin{
+
+	static Plugin pl;
+	
+	public void onEnable() {
+		pl = this;
+		
+		GameStart.getGameStart().setFirst();
+		
+		RespawnBlock.getRespawnBlock().respawn();
+		
+		getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
+		getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+		getServer().getPluginManager().registerEvents(new PlayerInteractBLock(), this);
+		getServer().getPluginManager().registerEvents(new PlayerMove(), this);
+		getServer().getPluginManager().registerEvents(new PlayerFood(), this);
+	}
+	
+	public static Plugin getPlugin(){
+		return pl;
+	}
+}
